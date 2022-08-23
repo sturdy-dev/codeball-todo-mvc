@@ -3,7 +3,6 @@ prompts = [
 
     "Add a /tasks endpoint listing all tasks in a sqlite database",
 
-    # "On startup, make sure that the tasks table exists (id auto incremental id, description text, done bool)",
     "before_first_request : Make sure that the tasks table exists (id auto incremental id, description text, done bool)",
 
     "Update the tasks() method to return tasks with object keys",
@@ -13,8 +12,6 @@ prompts = [
     "Add a /update endpoint that updates task descriptions and done status",
 
     "Add CORS headers to allow connections from any host",
-
-    "CORS, allow requests from any origin",
 
     "Update the add() method to return the id of the task created",
 
