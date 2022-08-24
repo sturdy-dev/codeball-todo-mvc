@@ -5,8 +5,10 @@ import sqlite3
 app = Flask(__name__)
 CORS(app)
 
+
 @app.before_first_request
 def create_tables():
+    """Create the database table if it doesn't exist."""
     conn = sqlite3.connect('tasks.db')
     c = conn.cursor()
     c.execute("""CREATE TABLE IF NOT EXISTS tasks (
@@ -17,12 +19,16 @@ def create_tables():
     conn.commit()
     conn.close()
 
+
 @app.route("/")
 def hello():
+    """Test route."""
     return "Hello World!"
+
 
 @app.route("/tasks")
 def tasks():
+    """Get all tasks."""
     conn = sqlite3.connect('tasks.db')
     c = conn.cursor()
     c.execute("SELECT * FROM tasks")
@@ -36,18 +42,23 @@ def tasks():
         })
     return jsonify(tasks_list)
 
+
 @app.route("/add", methods=["POST"])
 def add():
+    """Add a task."""
     conn = sqlite3.connect('tasks.db')
     c = conn.cursor()
     description = request.form["description"]
-    c.execute("INSERT INTO tasks (description, done) VALUES (:description, :done)", {"description": description, "done": 0})
+    c.execute("INSERT INTO tasks (description, done) VALUES (:description, :done)",
+              {"description": description, "done": 0})
     conn.commit()
     conn.close()
     return str(c.lastrowid)
 
+
 @app.route("/update", methods=["POST"])
 def update():
+    """Update a task."""
     conn = sqlite3.connect('tasks.db')
     c = conn.cursor()
     id = request.form["id"]
@@ -57,6 +68,7 @@ def update():
     conn.commit()
     conn.close()
     return "Success"
+
 
 if __name__ == "__main__":
     app.run()
