@@ -19,7 +19,7 @@ prompts = [
 
     "Format",
 
-    "before_first_request : If the tasks table is empty, add three rows to the tasks table.",
+    "before_first_request: After creating the table, if the table is empty, add three rows",
 ]
 
 import os
@@ -44,14 +44,14 @@ for idx, prompt in enumerate(prompts):
 
     file_contents = res.choices[0].text
 
-    with open(f"app_{idx}.py", "w") as f:
-        f.write(file_contents)
+    # with open(f"/Users/gustav/src/codeball-web/src/lib/blog/todo/steps/app_{idx}.py", "w") as f:
+    #     f.write(file_contents)
 
     with open(f"app.py", "w") as f:
         f.write(file_contents)
 
     print(os.system("git add app.py"))
-    print(os.system(f"git commit --author \"Codeball <bot@codeball.ai>\" -m \"{prompt}\""))
+    print(os.system(f"git commit --author \"Codeball <bot@codeball.ai>\" -m \"prompt: {prompt}\""))
 
     time.sleep(10)
 
