@@ -43,5 +43,14 @@ def add():
     conn.close()
     return "OK"
 
+@app.route("/update", methods=["POST"])
+def update():
+    conn = sqlite3.connect('tasks.db')
+    c = conn.cursor()
+    c.execute("UPDATE tasks SET description = ?, done = ? WHERE id = ?", (request.form["description"], request.form["done"], request.form["id"]))
+    conn.commit()
+    conn.close()
+    return "OK"
+
 if __name__ == "__main__":
     app.run()
