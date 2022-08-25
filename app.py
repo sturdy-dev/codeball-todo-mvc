@@ -41,7 +41,7 @@ def add():
     conn = sqlite3.connect('tasks.db')
     c = conn.cursor()
     description = request.form["description"]
-    c.execute("INSERT INTO tasks (description, done) VALUES (?, ?)", (description, 0))
+    c.execute("INSERT INTO tasks (description, done) VALUES (:description, :done)", {"description": description, "done": 0})
     conn.commit()
     conn.close()
     return str(c.lastrowid)
