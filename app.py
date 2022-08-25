@@ -5,6 +5,7 @@ import sqlite3
 app = Flask(__name__)
 CORS(app)
 
+
 @app.before_first_request
 def create_tables():
     conn = sqlite3.connect('tasks.db')
@@ -16,6 +17,7 @@ def create_tables():
     )""")
     conn.commit()
     conn.close()
+
 
 @app.route("/")
 def hello():
@@ -36,6 +38,7 @@ def tasks():
         })
     return jsonify(tasks_as_objects)
 
+
 @app.route("/add", methods=["POST"])
 def add():
     conn = sqlite3.connect('tasks.db')
@@ -45,6 +48,7 @@ def add():
     conn.close()
     return jsonify({"id": c.lastrowid})
 
+
 @app.route("/update", methods=["POST"])
 def update():
     conn = sqlite3.connect('tasks.db')
@@ -53,6 +57,7 @@ def update():
     conn.commit()
     conn.close()
     return "OK"
+
 
 if __name__ == "__main__":
     app.run()
