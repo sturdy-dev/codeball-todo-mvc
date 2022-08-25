@@ -5,6 +5,7 @@ import sqlite3
 app = Flask(__name__)
 CORS(app)
 
+
 @app.before_first_request
 def create_tables():
     conn = sqlite3.connect('tasks.db')
