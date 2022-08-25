@@ -44,7 +44,7 @@ def add():
     c.execute("INSERT INTO tasks (description, done) VALUES (?, ?)", (description, 0))
     conn.commit()
     conn.close()
-    return "Success"
+    return str(c.lastrowid)
 
 @app.route("/update", methods=["POST"])
 def update():
