@@ -19,6 +19,20 @@ def create_tables():
     conn.close()
 
 
+@app.before_first_request
+def add_tasks():
+    conn = sqlite3.connect('tasks.db')
+    c = conn.cursor()
+    c.execute("SELECT * FROM tasks")
+    tasks = c.fetchall()
+    if len(tasks) == 0:
+        c.execute("INSERT INTO tasks (description, done) VALUES (?, ?)", ("Learn Python", 0))
+        c.execute("INSERT INTO tasks (description, done) VALUES (?, ?)", ("Learn Flask", 0))
+        c.execute("INSERT INTO tasks (description, done) VALUES (?, ?)", ("Learn SQL", 0))
+        conn.commit()
+    conn.close()
+
+
 @app.route("/")
 def hello():
     return "Hello World!"
