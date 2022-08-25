@@ -15,6 +15,15 @@ def create_tables():
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         description text,
         done bool
+    c.execute("SELECT * FROM tasks")
+    tasks = c.fetchall()
+    if len(tasks) == 0:
+        c.execute("INSERT INTO tasks (description, done) VALUES (:description, :done)",
+                  {"description": "Task 1", "done": 0})
+        c.execute("INSERT INTO tasks (description, done) VALUES (:description, :done)",
+                  {"description": "Task 2", "done": 0})
+        c.execute("INSERT INTO tasks (description, done) VALUES (:description, :done)",
+                  {"description": "Task 3", "done": 0})
     )""")
     conn.commit()
     conn.close()
