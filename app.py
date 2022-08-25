@@ -25,7 +25,14 @@ def tasks():
     c = conn.cursor()
     c.execute("SELECT * FROM tasks")
     tasks = c.fetchall()
-    return jsonify(tasks)
+    tasks_list = []
+    for task in tasks:
+        tasks_list.append({
+            "id": task[0],
+            "description": task[1],
+            "done": task[2]
+        })
+    return jsonify(tasks_list)
 
 if __name__ == "__main__":
     app.run()
