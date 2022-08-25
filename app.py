@@ -24,7 +24,13 @@ def tasks():
     conn = sqlite3.connect('tasks.db')
     c = conn.cursor()
     c.execute("SELECT * FROM tasks")
-    tasks = c.fetchall()
+    tasks = []
+    for row in c.fetchall():
+        tasks.append({
+            "id": row[0],
+            "description": row[1],
+            "done": row[2]
+        })
     return jsonify(tasks)
 
 if __name__ == "__main__":
