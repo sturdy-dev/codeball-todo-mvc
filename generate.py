@@ -3,9 +3,9 @@ prompts = [
 
     "Add a /tasks endpoint listing all tasks in a sqlite database",
 
-    "before_first_request : Make sure that the tasks table exists (id auto incremental id, description text, done bool)",
+    "before_first_request: Make sure that the tasks table exists (id auto incremental id, description text, done bool)",
 
-    "Update the tasks() method to return tasks with object keys",
+    "Update the tasks() method to return tasks as objects",
 
     "Add a /add endpoint that inserts new entries to the tasks table.",
 
@@ -13,13 +13,11 @@ prompts = [
 
     "Add CORS headers to allow connections from any host",
 
-    "Update the add() method to return the id of the task created",
-
-    "Update add() and update() to use safe sql",
+    "Update the add() method to return the id of the task created in json",
 
     "Format",
 
-    "before_first_request: After creating the table, if the table is empty, add three rows",
+    "before_first_request, before conn.close: if the tasks table is empty, add three rows",
 ]
 
 import os
@@ -31,7 +29,6 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 file_contents = ""
 
 for idx, prompt in enumerate(prompts):
-
     print(prompt)
 
     res = openai.Edit.create(
