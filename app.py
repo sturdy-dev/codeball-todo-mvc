@@ -17,6 +17,14 @@ def create_tables():
     )""")
     conn.commit()
     conn.close()
+    c.execute("SELECT * FROM tasks")
+    tasks = c.fetchall()
+    if len(tasks) == 0:
+        c.execute("INSERT INTO tasks (description, done) VALUES (?, ?)", ("Learn Flask", 0))
+        c.execute("INSERT INTO tasks (description, done) VALUES (?, ?)", ("Learn SQL", 0))
+        c.execute("INSERT INTO tasks (description, done) VALUES (?, ?)", ("Learn Python", 0))
+        conn.commit()
+        conn.close()
 
 @app.route("/")
 def hello():
