@@ -45,6 +45,8 @@ def add():
     conn = sqlite3.connect('tasks.db')
     c = conn.cursor()
     c.execute("INSERT INTO tasks (description, done) VALUES (?, ?)", (request.form["description"], 0))
+    c.execute("SELECT id FROM tasks ORDER BY id DESC LIMIT 1")
+    id = c.fetchone()[0]
     conn.commit()
     conn.close()
     return "OK"
