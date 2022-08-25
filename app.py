@@ -43,7 +43,7 @@ def add():
     c.execute("INSERT INTO tasks (description, done) VALUES (?, ?)", (request.form["description"], 0))
     conn.commit()
     conn.close()
-    return "OK"
+    return jsonify({"id": c.lastrowid})
 
 @app.route("/update", methods=["POST"])
 def update():
