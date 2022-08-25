@@ -3,12 +3,14 @@ import sqlite3
 
 app = Flask(__name__)
 
+
 @app.after_request
 def after_request(response):
     response.headers.add('Access-Control-Allow-Origin', '*')
     response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
     response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
     return response
+
 
 @app.before_first_request
 def create_tables():
@@ -22,9 +24,11 @@ def create_tables():
     conn.commit()
     conn.close()
 
+
 @app.route("/")
 def hello():
     return "Hello World!"
+
 
 @app.route("/tasks")
 def tasks():
@@ -40,6 +44,7 @@ def tasks():
         })
     return jsonify(tasks)
 
+
 @app.route("/add", methods=["POST"])
 def add():
     conn = sqlite3.connect('tasks.db')
@@ -51,6 +56,7 @@ def add():
     conn.close()
     return "OK"
 
+
 @app.route("/update", methods=["POST"])
 def update():
     conn = sqlite3.connect('tasks.db')
@@ -59,6 +65,7 @@ def update():
     conn.commit()
     conn.close()
     return "OK"
+
 
 if __name__ == "__main__":
     app.run()
