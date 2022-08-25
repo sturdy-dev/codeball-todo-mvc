@@ -21,6 +21,11 @@ def create_tables():
         description TEXT,
         done BOOLEAN
     )""")
+    c.execute("SELECT * FROM tasks")
+    if len(c.fetchall()) == 0:
+        c.execute("INSERT INTO tasks (description, done) VALUES (?, ?)", ("Learn Python", 0))
+        c.execute("INSERT INTO tasks (description, done) VALUES (?, ?)", ("Learn Flask", 0))
+        c.execute("INSERT INTO tasks (description, done) VALUES (?, ?)", ("Learn SQLite", 0))
     conn.commit()
     conn.close()
 
