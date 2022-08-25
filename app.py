@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import sqlite3
 
 app = Flask(__name__)
@@ -33,6 +33,15 @@ def tasks():
             "done": task[2]
         })
     return jsonify(tasks_as_objects)
+
+@app.route("/add", methods=["POST"])
+def add():
+    conn = sqlite3.connect('tasks.db')
+    c = conn.cursor()
+    c.execute("INSERT INTO tasks (description, done) VALUES (?, ?)", (request.form["description"], 0))
+    conn.commit()
+    conn.close()
+    return "OK"
 
 if __name__ == "__main__":
     app.run()
